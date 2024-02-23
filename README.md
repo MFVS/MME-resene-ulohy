@@ -13,3 +13,5 @@ Musíte mít nainstalovaný docker. Aplikaci spustíte příkazem
 `docker compose up`
 
 v této složce.
+
+Aplikace bude k dispozici na `http://localhost:8501`
