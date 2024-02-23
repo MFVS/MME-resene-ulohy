@@ -5,7 +5,7 @@ from exercises import exercise
 
 st.set_page_config(
     page_title="MME",
-    page_icon="🧊",
+    page_icon=":satellite-antenna:",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -23,8 +23,7 @@ for file in os.listdir('exercises'):
                 ulohy.append(cls())
 
 solved = st.sidebar.radio("Vyber úlohu", ulohy)
+st.sidebar.divider()
 
 solved.render_navbar(st.sidebar)
 solved.render_body()
-
-viewer = st.empty()
