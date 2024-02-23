@@ -6,7 +6,7 @@ services:
       - 8501:8501
     volumes:
       - .:/app
-      - ./configs/streamlit.toml:/home/root/.streamlit/config.toml
+      - ./configs/streamlit.toml:/root/.streamlit/config.toml
       - app_module_cache:/root/.cache
 volumes:
   app_module_cache:
