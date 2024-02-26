@@ -6,7 +6,7 @@ from exercises import exercise
 st.set_page_config(
     page_title="MME",
     page_icon=":satellite-antenna:",
-    layout="wide",
+    layout="centered",
     initial_sidebar_state="expanded",
 )
 st.title("řešené úlohy matematika v mikroekonomii")
