@@ -4,31 +4,29 @@ import plotly.express as px
 
 from utils import update_plot
 
-class Uloha_Trapny_Grafy(Exercise):
-    def render_navbar(self, sidebar):
-        sidebar.write("Tady budou parametry")
-    def render_body(self):
-        st.write("Tady bude tvoje řešení")
-    def __str__(self) -> str:
-        return "Trapný grafy"
-
-class Uloha_Dalsi_Grafy(Exercise):
-    def render_navbar(self, sidebar):
-        sidebar.write("Tady budou jiné parametry")
-    def render_body(self):
-        st.write("Tady bude tvoje další řešení")
-    def __str__(self) -> str:
-        return "Další grafy"
 
 class Mezni_Sklon(Exercise):
-    def render_navbar(self, sidebar):
-        self.point = sidebar.slider("Sklon přímky", 10, 25, 10)
-        self.x_tangent = sidebar.slider("Tečna v bodě", 5, 15, 10)
+    def subchapter_number(self):
+        return 1
+
+    def chapter_name(self):
+        return "Matematický základ"
+
+    def __str__(self) -> str:
+        return "Mezní sklon"
+
     def render_body(self):
-        x_values, y_values, f, tangent_line, slope_values = update_plot(self.point, self.x_tangent)
-        
+        self.point = st.sidebar.slider("Sklon přímky", 10, 25, 10)
+        self.x_tangent = st.sidebar.slider("Tečna v bodě", 5, 15, 10)
+        x_values, y_values, f, tangent_line, slope_values = update_plot(
+            self.point, self.x_tangent
+        )
+
         fig = px.line(
-            x=x_values, y=y_values, labels={"x": "x", "y": "f(x)"}, template="simple_white"
+            x=x_values,
+            y=y_values,
+            labels={"x": "x", "y": "f(x)"},
+            template="simple_white",
         )
         fig.update_layout(xaxis=dict(range=[0, 20]), yaxis=dict(range=[0, 20]))
         fig.update_traces(line_color="#3dd56d")
@@ -71,6 +69,3 @@ class Mezni_Sklon(Exercise):
                         - Konkávní funkce má klesající sklon.
                         """
             )
-
-    def __str__(self) -> str:
-        return "Mezní sklon"
