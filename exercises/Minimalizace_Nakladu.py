@@ -6,11 +6,8 @@ from .styling import latex_style, latex_img, box_style
 
 
 class Produkcni_Funkce(Exercise):
-    def subchapter_number(self):
-        return 2
-
-    def chapter_name(self):
-        return "Teorie Firmy"
+    def chapter_identifier(self):
+        return "2.2"
 
     def __str__(self) -> str:
         return "Minimalizace Nákladů"

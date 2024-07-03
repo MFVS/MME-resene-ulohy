@@ -6,7 +6,7 @@ from utils import update_plot
 
 
 class Mezni_Sklon(Exercise):
-    def subchapter_number(self):
+    def chapter_identifier(self):
         return 1
 
     def chapter_name(self):

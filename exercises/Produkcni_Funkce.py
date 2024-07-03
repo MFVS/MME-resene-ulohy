@@ -6,15 +6,10 @@ from .styling import latex_style, latex_img, box_style
 
 
 class Produkcni_Funkce(Exercise):
-    def subchapter_number(self):
-        return 1
-
-    def chapter_name(self):
-        return "Teorie Firmy"
-
+    def chapter_identifier(self):
+        return "2.1"
     def __str__(self) -> str:
         return "Produkční funkce"
-
     def render_body(self):
         st.markdown("<div id='linkto_top'></div>", unsafe_allow_html=True)
 
@@ -35,12 +30,12 @@ class Produkcni_Funkce(Exercise):
         st.subheader("2.1 Produkční funkce firmy")
         st.markdown(
             f"""
-            <div style="text-align: justify"> 
+            <div style="text-align: justify">
             Produkční funkce firmy udává maximální možný objem výroby při daném množství výrobních faktorů.
             V této kapitole budeme uvažovat dva výrobní faktory: práci <img src="{latex_img}{'L'}" style="{latex_style}" />
             a kapitál <img src="{latex_img}{'K'}" style="{latex_style}" /> (kapitálový statek).
             <br>
-            <br>  
+            <br>
             Může existovat tzv. neefektivní firma, která se stejným objemem výrobních faktorů vyrobí menší množství zboží než efektivní firma.
             V následujících úlohách budeme ale předpokládat efektivní firmu, pro kterou platí, že hodnota produkční funkce je rovná
             skutečně vyrobenému množství zboží.

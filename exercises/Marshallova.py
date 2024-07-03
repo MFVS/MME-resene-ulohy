@@ -6,28 +6,11 @@ from .styling import latex_style, latex_img, box_style
 
 
 class Marshallova_Uloha(Exercise):
-    def subchapter_number(self):
-        return 2
-    def chapter_name(self):
-        return "Teorie spotřebitele"
+    def chapter_identifier(self):
+        return "1.1"
+    def __str__(self) -> str:
+        return "Marshallova úloha"
     def render_body(self):
-        st.markdown("<div id='linkto_top'></div>", unsafe_allow_html=True)
-
-        left_button, right_button = st.columns([2.82, 1])
-
-        with left_button:
-            if st.button("← Domů", key="1"):
-                st.session_state.page = "uvod"
-                st.rerun()
-
-        with right_button:
-            if st.button("1.2 Hicksova úloha →", key="2"):
-                st.session_state.page = "hicks"
-                st.rerun()
-
-        st.markdown("---")
-
-        st.subheader("1.1 Marshallova úloha")
         st.markdown(
             f"""
             <div style="text-align: justify">
@@ -317,6 +300,3 @@ class Marshallova_Uloha(Exercise):
             """,
             unsafe_allow_html=True,
         )
-
-    def __str__(self) -> str:
-        return "Marshallova úloha"

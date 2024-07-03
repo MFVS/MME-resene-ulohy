@@ -15,7 +15,7 @@ class Routing_Context:
 
     def redirect(self, path: str):
         st.session_state[Routing_Context.SESSION_KEY_PATH] = path
-        st.experimental_rerun()
+        st.rerun()
 
     def route(self, *paths: str):
         assert len(paths) != 0
