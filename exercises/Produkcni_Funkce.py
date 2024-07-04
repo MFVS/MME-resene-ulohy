@@ -1,4 +1,4 @@
-from .exercise import Exercise
+from exercise import Exercise
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
@@ -8,8 +8,10 @@ from .styling import latex_style, latex_img, box_style
 class Produkcni_Funkce(Exercise):
     def chapter_identifier(self):
         return "2.1"
+
     def __str__(self) -> str:
         return "Produkční funkce"
+
     def render_body(self):
         st.markdown("<div id='linkto_top'></div>", unsafe_allow_html=True)
 

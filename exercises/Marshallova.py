@@ -1,15 +1,17 @@
-from .exercise import Exercise
+from exercise import Exercise
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
 from .styling import latex_style, latex_img, box_style
 
 
-class Marshallova_Uloha(Exercise):
+class Marshalls_Exercise(Exercise):
     def chapter_identifier(self):
         return "1.1"
+
     def __str__(self) -> str:
         return "Marshallova úloha"
+
     def render_body(self):
         st.markdown(
             f"""

@@ -1,13 +1,14 @@
-from .exercise import Exercise
+from exercise import Exercise
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
 from .styling import latex_style, latex_img, box_style
 
 
-class Produkcni_Funkce(Exercise):
+class Maximalizace_Zisku(Exercise):
     def chapter_identifier(self):
         return "2.3"
+
     def __str__(self) -> str:
         return "Maximalizace zisku"
 
@@ -92,7 +93,11 @@ class Produkcni_Funkce(Exercise):
             )
 
             LVC = st.sidebar.slider(
-                "Variabilní náklady $LVC$", min_value=10, max_value=1000, value=500, step=1
+                "Variabilní náklady $LVC$",
+                min_value=10,
+                max_value=1000,
+                value=500,
+                step=1,
             )
 
             c = st.sidebar.slider(
@@ -184,7 +189,11 @@ class Produkcni_Funkce(Exercise):
             )
 
             c = st.sidebar.slider(
-                "Parametry $c$ a $d$", min_value=0.01, max_value=0.99, value=0.5, step=0.01
+                "Parametry $c$ a $d$",
+                min_value=0.01,
+                max_value=0.99,
+                value=0.5,
+                step=0.01,
             )
             d = round(1 - c, 2)
 
@@ -222,7 +231,9 @@ class Produkcni_Funkce(Exercise):
 
             st.markdown(metoda1_definice, unsafe_allow_html=True)
 
-            zisk = round(P - w * ((c * r) / (d * w)) ** d - r * ((d * w) / (c * r)) ** c, 2)
+            zisk = round(
+                P - w * ((c * r) / (d * w)) ** d - r * ((d * w) / (c * r)) ** c, 2
+            )
             st.markdown(
                 f"""<div style="text-align: justify">
                         <br>

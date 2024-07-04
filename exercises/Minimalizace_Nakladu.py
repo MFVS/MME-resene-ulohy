@@ -1,11 +1,11 @@
-from .exercise import Exercise
+from exercise import Exercise
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
 from .styling import latex_style, latex_img, box_style
 
 
-class Produkcni_Funkce(Exercise):
+class Minimalizace_Nakladu(Exercise):
     def chapter_identifier(self):
         return "2.2"
 

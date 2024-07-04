@@ -1,15 +1,17 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
-from .exercise import Exercise
+from exercise import Exercise
 from .styling import box_style, latex_img, latex_style
 
 
 class Hicksova_Uloha(Exercise):
     def chapter_identifier(self):
         return "1.2"
+
     def __str__(self) -> str:
         return "Hicksova úloha"
+
     def render_body(self):
         st.markdown(
             """
