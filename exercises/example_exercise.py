@@ -7,10 +7,7 @@ from utils import update_plot
 
 class Mezni_Sklon(Exercise):
     def chapter_identifier(self):
-        return 1
-
-    def chapter_name(self):
-        return "Matematický základ"
+        return "0.1"
 
     def __str__(self) -> str:
         return "Mezní sklon"

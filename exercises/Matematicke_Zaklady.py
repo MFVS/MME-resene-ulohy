@@ -1,28 +1,26 @@
+from .exercise import Exercise
 import streamlit as st
-from routing import Routing_Context
 
 
-class Chapter:
-    def __str__(self):
-        raise NotImplementedError()
+class Matematicke_Zaklady(Exercise):
+    def chapter_identifier(self):
+        return "0"
 
-    def description(self):
-        raise NotImplementedError()
-
-
-class Matematicky_Zaklad:
     def __str__(self) -> str:
-        return "Matematický základ"
+        return "Matematické základy"
 
-    def description(self):
+    def render_body(self):
         st.text("Ukazuje zásadní matematické koncepty v mikroekonomii")
 
 
-class Teorie_Spotrebitele:
+class Teorie_Spotrebitele(Exercise):
+    def chapter_identifier(self):
+        return "1"
+
     def __str__(self) -> str:
         return "Teorie spotřebitele"
 
-    def description(self):
+    def render_body(self):
         st.markdown(
             """
             <div style="text-align: justify">
@@ -37,11 +35,14 @@ class Teorie_Spotrebitele:
         )
 
 
-class Teorie_Firmy:
+class Teorie_Firmy(Exercise):
+    def chapter_identifier(self):
+        return "2"
+
     def __str__(self) -> str:
         return "Teorie Firmy"
 
-    def description(self):
+    def render_body(self):
         st.markdown(
             """
             <div style="text-align: justify"> 
@@ -60,31 +61,3 @@ class Teorie_Firmy:
             """,
             unsafe_allow_html=True,
         )
-
-
-topics = [Matematicky_Zaklad(), Teorie_Spotrebitele(), Teorie_Firmy()]
-
-
-def render_topics(ulohy):
-    for chapter_index, chapter in enumerate(topics):
-        subchapters = []
-        for exercise in ulohy:
-            subchapters.append(exercise)
-        subchapters.sort(key=lambda x: x.subchapter_number())
-
-        st.title(f"{chapter_index} {chapter.__str__()}")
-        chapter.description()
-        if len(subchapters) == 0:
-            st.warning("No subchapters")
-            continue
-        cols = st.columns(len(subchapters) + 1)
-        for [subchapter, col] in zip(subchapters, cols[:-1]):
-            print(f"MAYBE REDIRECTING TO {str(subchapter)}")
-            if col.button(
-                ".".join([str(chapter_index), str(subchapter.subchapter_number())])
-                + "\t"
-                + str(subchapter),
-                "menu_choose_button" + str(chapter_index) + str(subchapter),
-            ):
-                print(f"ACTUALLY REDIRECTING TO {str(subchapter)}")
-                Routing_Context().redirect(str(subchapter))
