@@ -17,7 +17,7 @@ hide_streamlit_style = """
         footer {visibility: hidden;}
         </style>
     """
-st.html(hide_streamlit_style)
+# st.html(hide_streamlit_style) # FIXME: this braks markdown LaTeX
 
 st.title("Řešené úlohy z matematiky v mikroekonomii")
 
@@ -135,9 +135,9 @@ def register_routes(exercise):
 
 # TODO: this doesn't work at all
 for id in exercises:
-    exercise = exercises.get(id)
-    @ctx.route(exercise.chapter_identifier())
-    def handler():
+    @ctx.route(id)
+    def handler(id=id):
+        exercise = exercises.get(id)
         st.markdown("<div id='linkto_top'></div>", unsafe_allow_html=True)
         if st.button("← Domů", key="chapter_move_home"):
             ctx.redirect("Domů")
@@ -153,7 +153,7 @@ for id in exercises:
                 ctx.redirect("Domů")
 
         st.markdown("---")
-        exercises.get(id).render_body()
+        exercise.render_body()
     # register_routes(top_level_chapters.get(id))
 # register_route_recursively(top_level_chapters)
 
