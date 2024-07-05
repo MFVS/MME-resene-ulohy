@@ -32,13 +32,15 @@ for file in os.listdir("exercises"):
 
     module = importlib.import_module(f"exercises.{import_name}")
     importlib.reload(module)
-    found_classes.extend([
-        getattr(module, x)
-        for x in dir(module)
-        if isinstance(getattr(module, x), type)
-    ])
+    found_classes.extend(
+        [
+            getattr(module, x)
+            for x in dir(module)
+            if isinstance(getattr(module, x), type)
+        ]
+    )
 removed_classes = []
-for cls in reversed(found_classes): # removes classes that aren't exercises
+for cls in reversed(found_classes):  # removes classes that aren't exercises
     if not issubclass(cls, Exercise) or cls is Exercise:
         found_classes.remove(cls)
         removed_classes.append(cls)
@@ -57,7 +59,9 @@ sorted_chapter_ids = sorted(exercises.keys())
 for chapter_id in sorted_chapter_ids:
     parent = top_level_chapters
     exercise = exercises.get(chapter_id)
-    assert isinstance(exercise, Exercise), f"cannot use {exercise} because an Exercise subclass is expected"
+    assert isinstance(
+        exercise, Exercise
+    ), f"cannot use {exercise} because an Exercise subclass is expected"
     id = exercise.chapter_identifier()
     # st.info(f"exercise {exercise}")
     subchapter_id_list = id.split(".")
@@ -65,18 +69,24 @@ for chapter_id in sorted_chapter_ids:
     if len(subchapter_id_list) == 1:
         top_level_chapters[id] = exercise
         continue
-    assert isinstance(parent, Exercise) or parent is top_level_chapters, f"cannot use {parent} because an Exercise subclass is expected"
+    assert (
+        isinstance(parent, Exercise) or parent is top_level_chapters
+    ), f"cannot use {parent} because an Exercise subclass is expected"
     for id_part in subchapter_id_list[:-1]:
         parent = parent.get(id_part)
         assert parent is not None
-        assert isinstance(parent, Exercise) or parent is top_level_chapters, f"cannot use {parent} because an Exercise subclass is expected"
+        assert (
+            isinstance(parent, Exercise) or parent is top_level_chapters
+        ), f"cannot use {parent} because an Exercise subclass is expected"
         # st.info(f"{id_part}:{parent}")
     last_id_part = id[-1]
     # st.info(f"{type(last_id_part)} : {parent}")
     assert (
         parent is not top_level_chapters
     ), f"exercise {exercise.chapter_identifier()} is missing a parent exercise"
-    assert isinstance(exercise, Exercise), f"cannot use {exercise} because an Exercise subclass is expected"
+    assert isinstance(
+        exercise, Exercise
+    ), f"cannot use {exercise} because an Exercise subclass is expected"
     if parent is exercise:
         continue
     parent[last_id_part] = exercise
@@ -84,57 +94,38 @@ for chapter_id in sorted_chapter_ids:
 # register routes
 ctx = Routing_Context(default="Domů")
 
-# def register_route_recursively(exercise):
-#     for child_id in exercise.keys():
-#         child = exercise.get(child_id)
-#         @ctx.route(child.chapter_identifier())
-#         def handler():
-#             st.markdown("<div id='linkto_top'></div>", unsafe_allow_html=True)
-#             if st.button("← Domů", key="chapter_move_home"):
+
+# def register_routes(exercise):
+#     id = exercise.chapter_identifier()
+#     @ctx.route(id=id)
+#     def handler():
+#         st.markdown("<div id='linkto_top'></div>", unsafe_allow_html=True)
+#         if st.button("← Domů", key="chapter_move_home"):
+#             ctx.redirect("Domů")
+#         left_button, right_button = st.columns([2.4, 1])
+#         # TODO:
+#         with left_button:
+#             if st.button(f"← Předchozí úloha", key="chapter_move_left"):
 #                 ctx.redirect("Domů")
-#             left_button, right_button = st.columns([2.4, 1])
-#             # TODO:
-#             with left_button:
-#                 if st.button(f"← Předchozí úloha", key="chapter_move_left"):
-#                     ctx.redirect("Domů")
 
-#             with right_button:
-#                 st.empty()
-#                 if st.button(f"Následující úloha →", key="chapter_move_right"):
-#                     ctx.redirect("Domů")
+#         with right_button:
+#             st.empty()
+#             if st.button(f"Následující úloha →", key="chapter_move_right"):
+#                 ctx.redirect("Domů")
 
-#             st.markdown("---")
-#             exercises[exercise.chapter_identifier()].render_body()
-#     # recurse further
-#     for toplevel_id in exercise.keys():
-#         child_exercise = exercise.get(toplevel_id)
-#         register_route_recursively(child_exercise)
+#         st.markdown("---")
+#         exercise.render_body()
 
-def register_routes(exercise):
-    @ctx.route(exercise.chapter_identifier())
-    def handler():
-        st.markdown("<div id='linkto_top'></div>", unsafe_allow_html=True)
-        if st.button("← Domů", key="chapter_move_home"):
-            ctx.redirect("Domů")
-        left_button, right_button = st.columns([2.4, 1])
-        # TODO:
-        with left_button:
-            if st.button(f"← Předchozí úloha", key="chapter_move_left"):
-                ctx.redirect("Domů")
+#     for child_id in exercise.keys():
+#         st.info(f"{exercise.__str__()} {child_id}")
+#         register_routes(exercises.get(child_id))
 
-        with right_button:
-            st.empty()
-            if st.button(f"Následující úloha →", key="chapter_move_right"):
-                ctx.redirect("Domů")
 
-        st.markdown("---")
-        exercise.render_body()
-    for child_id in exercise.keys():
-        st.info(f"{exercise.__str__()} {child_id}")
-        register_routes(exercises.get(child_id))
+# for id in top_level_chapters.values():
+#     register_routes(id)
 
-# TODO: this doesn't work at all
 for id in exercises:
+
     @ctx.route(id)
     def handler(id=id):
         exercise = exercises.get(id)
@@ -154,10 +145,7 @@ for id in exercises:
 
         st.markdown("---")
         exercise.render_body()
-    # register_routes(top_level_chapters.get(id))
-# register_route_recursively(top_level_chapters)
 
-# st.info(f"total {len(top_level_chapters)} top level chapters")
 
 @ctx.route("Domů")
 def homepage():
@@ -169,7 +157,7 @@ def homepage():
         for i, subchapter_id in enumerate(chapter.subchapters):
             subchapter = chapter.subchapters[subchapter_id]
             btn_text = f"{subchapter.chapter_identifier()} {subchapter}"
-            index = i%4
+            index = i % 4
             col = cols[index]
             with col:
                 if st.button(btn_text, key=btn_text):
